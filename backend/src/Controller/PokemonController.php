@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PokemonController
 {
@@ -19,11 +21,13 @@ class PokemonController
     public function __construct(
         NormalizerInterface $normalizer,
         EntityManagerInterface $entityManager,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        ValidatorInterface $validator
     ) {
         $this->normalizer = $normalizer;
         $this->entityManager = $entityManager;
         $this->serializer = $serializer;
+        $this->validator = $validator;
     }
 
     /**
@@ -55,6 +59,12 @@ class PokemonController
     {
         $data = $request->getContent();
         $pokemon = $this->serializer->deserialize($data, Pokemon::class, "json");
+
+        $errors = $this->validator->validate($pokemon);
+        if (count($errors) > 0) {
+            $errorsString = (string)$errors;
+            throw new BadRequestHttpException($errorsString);
+        }
 
         $this->entityManager->persist($pokemon);
         $this->entityManager->flush();
