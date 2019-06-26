@@ -24,14 +24,10 @@ class PokemonController
      */
     public function get(): JsonResponse
     {
-        $pokemon = new Pokemon();
-        $pokemon->setName("bulbasaur");
-        $pokemon->setWeight(67);
-        $pokemon->setHeight(67);
+        $pokemons = $this->entityManager->getRepository(Pokemon::class)->findAll();
+        $serializedPokemons = $this->normalizer->normalize($pokemons);
 
-        $serializedPokemon = $this->normalizer->normalize($pokemon, "json");
-
-        return new JsonResponse($serializedPokemon);
+        return new JsonResponse($serializedPokemons);
     }
 
     /**
@@ -40,9 +36,9 @@ class PokemonController
     public function createPokemon(): JsonResponse
     {
         $pokemon = new Pokemon();
-        $pokemon->setName("bulbasaur");
-        $pokemon->setWeight(67);
-        $pokemon->setHeight(67);
+        $pokemon->setName("pikachu");
+        $pokemon->setWeight(17);
+        $pokemon->setHeight(17);
 
         $this->entityManager->persist($pokemon);
         $this->entityManager->flush();
