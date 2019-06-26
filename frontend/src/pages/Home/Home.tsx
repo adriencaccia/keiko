@@ -14,6 +14,7 @@ class Home extends React.Component {
           pokemons !
         </div>
         <div>Commence par créer ton premier pokemon: {pokemon}</div>
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" />
       </Style.Intro>
     );
   }
