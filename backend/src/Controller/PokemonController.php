@@ -7,16 +7,23 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class PokemonController
 {
     private $normalizer;
     private $entityManager;
+    private $serializer;
 
-    public function __construct(NormalizerInterface $normalizer, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+        NormalizerInterface $normalizer,
+        EntityManagerInterface $entityManager,
+        SerializerInterface $serializer
+    ) {
         $this->normalizer = $normalizer;
         $this->entityManager = $entityManager;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -44,12 +51,10 @@ class PokemonController
     /**
      * @Route("/pokemon", methods={"POST"})
      */
-    public function createPokemon(): JsonResponse
+    public function createPokemon(Request $request): JsonResponse
     {
-        $pokemon = new Pokemon();
-        $pokemon->setName("pikachu");
-        $pokemon->setWeight(17);
-        $pokemon->setHeight(17);
+        $data = $request->getContent();
+        $pokemon = $this->serializer->deserialize($data, Pokemon::class, "json");
 
         $this->entityManager->persist($pokemon);
         $this->entityManager->flush();
