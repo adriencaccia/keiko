@@ -6,6 +6,7 @@ use App\Entity\Pokemon;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class PokemonController
 {
@@ -17,7 +18,7 @@ class PokemonController
     }
 
     /**
-     * @Route("/pokemon")
+     * @Route("/pokemon", methods={"GET"})
      */
     public function get()
     {
@@ -26,8 +27,16 @@ class PokemonController
         $pokemon->setWeight(67);
         $pokemon->setHeight(67);
 
-        $serialized_pokemon = $this->normalizer->normalize($pokemon, "json");
+        $serializedPokemon = $this->normalizer->normalize($pokemon, "json");
 
-        return new JsonResponse($serialized_pokemon);
+        return new JsonResponse($serializedPokemon);
+    }
+
+    /**
+     * @Route("/pokemon", methods={"POST"})
+     */
+    public function createPokemon()
+    {
+        return new Response("Hello World");
     }
 }
