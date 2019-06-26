@@ -1,20 +1,14 @@
+import Pokemon from 'components/Pokemon';
 import * as React from 'react';
-
 import Style from './Home.style';
 
 class Home extends React.Component {
   render(): React.ReactNode {
-    const pokemon = 'Carapuce';
-
     return (
       <Style.Intro>
-        <div>Bienvenue sur ton futur pokédex !</div>
-        <div>
-          Tu vas pouvoir apprendre tout ce qu'il faut sur React, Redux et Symfony, et attraper des
-          pokemons !
-        </div>
-        <div>Commence par créer ton premier pokemon: {pokemon}</div>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" />
+        <Pokemon name="Carapuce" id={7} />
+        <Pokemon name="Carabaffe" id={8} />
+        <Pokemon name="Tortank" id={9} />
       </Style.Intro>
     );
   }
