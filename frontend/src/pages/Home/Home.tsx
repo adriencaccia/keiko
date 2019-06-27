@@ -21,10 +21,12 @@ class Home extends React.Component<Props, State> {
     this.setState({ pokemons });
   }
   render(): React.ReactNode {
-    const pokemon = this.state.pokemons && this.state.pokemons[0];
+    const { pokemons } = this.state;
     return (
       <Style.Intro>
-        {pokemon && <Pokemon name={pokemon.name} id={pokemon.id} />}
+        {pokemons.map(pokemon => (
+          <Pokemon name={pokemon.name} id={pokemon.id} key={pokemon.id} />
+        ))}
         <Pokemon name="Carapuce" id={7} />
         <Pokemon name="Carabaffe" id={8} />
         <Pokemon name="Tortank" id={9} />
