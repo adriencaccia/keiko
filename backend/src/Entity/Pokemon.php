@@ -53,6 +53,11 @@ class Pokemon
      */
     private $abilities;
 
+    public function __construct()
+    {
+        $this->abilities = [];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
