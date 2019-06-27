@@ -1,5 +1,6 @@
 import Pokemon from 'components/Pokemon';
 import * as React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { makeGetRequest } from 'services/networking/request';
 import Style from './Home.style';
 
@@ -8,6 +9,8 @@ interface State {
   pokemons: Array<{
     id: number;
     name: string;
+    height: string;
+    weight: string;
   }>;
 }
 
@@ -23,14 +26,16 @@ class Home extends React.Component<Props, State> {
   render(): React.ReactNode {
     const { pokemons } = this.state;
     return (
-      <Style.Intro>
-        {pokemons.map(pokemon => (
-          <Pokemon name={pokemon.name} id={pokemon.id} key={pokemon.id} />
-        ))}
-        <Pokemon name="Carapuce" id={7} />
-        <Pokemon name="Carabaffe" id={8} />
-        <Pokemon name="Tortank" id={9} />
-      </Style.Intro>
+      <Style.Container>
+        <Style.Title>
+          <FormattedMessage id="home.title" />
+        </Style.Title>
+        <Style.Grid>
+          {pokemons.map(pokemon => (
+            <Pokemon {...pokemon} key={pokemon.id} />
+          ))}
+        </Style.Grid>
+      </Style.Container>
     );
   }
 }
