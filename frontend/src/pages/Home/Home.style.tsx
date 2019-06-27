@@ -24,4 +24,10 @@ const Loader = styled.img`
   margin: auto;
 `;
 
-export default { Container, Title, Grid, Loader };
+const Error = styled.p`
+  text-align: center;
+  font-size: 30px;
+  color: #fe2132;
+`;
+
+export default { Container, Title, Grid, Loader, Error };

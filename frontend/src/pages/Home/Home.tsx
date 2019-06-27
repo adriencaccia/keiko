@@ -13,21 +13,28 @@ interface State {
     height: string;
     weight: string;
   }>;
+  error: string;
 }
 
 class Home extends React.Component<Props, State> {
   state: State = {
     pokemons: [],
     loading: false,
+    error: '',
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this.setState({ loading: true });
-    const { body: pokemons } = await makeGetRequest('/pokemon');
-    this.setState({ pokemons, loading: false });
+    makeGetRequest('/pokemon')
+      .then(({ body: pokemons }) => {
+        this.setState({ pokemons, loading: false });
+      })
+      .catch(error => {
+        this.setState({ error: error.toString(), loading: false });
+      });
   }
   render(): React.ReactNode {
-    const { pokemons, loading } = this.state;
+    const { pokemons, loading, error } = this.state;
     return (
       <Style.Container>
         <Style.Title>
@@ -35,6 +42,11 @@ class Home extends React.Component<Props, State> {
         </Style.Title>
         {loading ? (
           <Style.Loader src="https://trello-attachments.s3.amazonaws.com/5d0ce56e059f0263f02e0155/5d0ce56e059f0263f02e016f/x/f020b178de9e22691149d450613f8f52/loader.svg" />
+        ) : error ? (
+          <Style.Error>
+            Oh no !<br /> The following error happened:
+            <br /> {error}
+          </Style.Error>
         ) : (
           <Style.Grid>
             {pokemons.map(pokemon => (
