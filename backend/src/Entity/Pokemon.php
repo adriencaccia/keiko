@@ -6,9 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     normalizationContext={"groups"={"pokemon"}},
+ * )
  * @ORM\Table(name="pokemon")
  * @ORM\Entity()
  * @UniqueEntity("name")
@@ -19,26 +22,36 @@ class Pokemon
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("pokemon")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
+     * @Groups("pokemon")
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Groups("pokemon")
      */
     private $weight;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Groups("pokemon")
      */
     private $height;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Ability")
+     * @Groups("pokemon")
+     */
+    private $abilities;
 
     public function getId(): ?int
     {
@@ -91,5 +104,21 @@ class Pokemon
     public function setWeight($weight): void
     {
         $this->weight = $weight;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAbilities()
+    {
+        return $this->abilities;
+    }
+
+    /**
+     * @param mixed $abilities
+     */
+    public function setAbilities($abilities): void
+    {
+        $this->abilities = $abilities;
     }
 }
