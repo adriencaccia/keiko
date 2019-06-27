@@ -19,4 +19,9 @@ const Grid = styled.div`
   grid-gap: 30px 30px;
 `;
 
-export default { Container, Title, Grid };
+const Loader = styled.img`
+  display: block;
+  margin: auto;
+`;
+
+export default { Container, Title, Grid, Loader };
