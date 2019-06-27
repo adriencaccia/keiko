@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Card = styled.div`
+  position: relative;
   border: 5px double black;
   height: 200px;
   width: 250px;
@@ -17,4 +18,11 @@ const Header = styled.div`
   font-size: 15px;
 `;
 
-export default { Card, Header };
+const Toggle = styled.img`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+`;
+
+export default { Card, Header, Toggle };
