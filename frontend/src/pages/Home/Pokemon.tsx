@@ -43,7 +43,10 @@ const Pokemon = (props: Props) => {
   return (
     <Style.Container>
       {loading ? (
-        <Style.Loader src="https://trello-attachments.s3.amazonaws.com/5d0ce56e059f0263f02e0155/5d0ce56e059f0263f02e016f/x/f020b178de9e22691149d450613f8f52/loader.svg" />
+        <Style.Loader
+          alt="loader"
+          src="https://trello-attachments.s3.amazonaws.com/5d0ce56e059f0263f02e0155/5d0ce56e059f0263f02e016f/x/f020b178de9e22691149d450613f8f52/loader.svg"
+        />
       ) : error ? (
         <Style.Error>
           Oh no !<br /> The following error happened:
@@ -54,7 +57,7 @@ const Pokemon = (props: Props) => {
           <Style.Title>{pokemon.name}</Style.Title>
           <Style.Grid>
             {urls.map((url, i) => (
-              <Style.Image src={url} key={i} />
+              <Style.Image src={url} key={i} alt="pokemon" />
             ))}
           </Style.Grid>
           <div>

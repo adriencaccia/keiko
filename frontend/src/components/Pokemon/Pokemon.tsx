@@ -28,7 +28,7 @@ const Pokemon = (props: Props) => {
           onClick={turn}
           src="https://trello-attachments.s3.amazonaws.com/5d0ce56e059f0263f02e0155/5d0ce56e059f0263f02e01b8/x/84f45513081d61ceedc7bdf7c4442d72/turn-ico.svg"
         />
-        <img src={url} />
+        <img src={url} alt="pokemon" />
         <div>
           <FormattedMessage id="pokemon.id" />: {id}
         </div>
