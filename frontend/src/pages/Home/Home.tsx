@@ -1,8 +1,11 @@
 import Pokemon from 'components/Pokemon';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { RouteComponentProps } from 'react-router';
 import { makeGetRequest } from 'services/networking/request';
 import Style from './Home.style';
+
+interface Props extends RouteComponentProps<{ page: string }> {}
 
 interface State {
   loading: boolean;
@@ -15,7 +18,8 @@ interface State {
   error: string;
 }
 
-const Home = () => {
+const Home = (props: Props) => {
+  const { page } = props.match.params;
   const [loading, setLoading] = useState<State['loading']>(false);
   const [pokemons, setPokemons] = useState<State['pokemons']>([]);
   const [error, setError] = useState<State['error']>('');
@@ -29,7 +33,7 @@ const Home = () => {
         weight: string;
       }> = [];
       try {
-        const response = await makeGetRequest('/pokemon');
+        const response = await makeGetRequest(`/pokemon?page=${page}`);
         fetchedPokemons = response.body;
       } catch (caughtError) {
         setError(caughtError.toString());
@@ -39,8 +43,9 @@ const Home = () => {
       setLoading(false);
     }
     fetchPokemons();
-  }, []);
-
+  }, [page]);
+  const pageInt = parseInt(page, 10);
+  const navigation = (pageNumber: number) => (pageNumber <= 0 ? 1 : pageNumber);
   return (
     <Style.Container>
       <Style.Title>
@@ -54,11 +59,17 @@ const Home = () => {
           <br /> {error}
         </Style.Error>
       ) : (
-        <Style.Grid>
-          {pokemons.map(pokemon => (
-            <Pokemon {...pokemon} key={pokemon.id} />
-          ))}
-        </Style.Grid>
+        <div>
+          <Style.NavigationContainer>
+            <Style.Navigation to={`/pokedex/${navigation(pageInt - 1)}`}>{'<'}</Style.Navigation>
+            <Style.Navigation to={`/pokedex/${navigation(pageInt + 1)}`}>{'>'}</Style.Navigation>
+          </Style.NavigationContainer>
+          <Style.Grid>
+            {pokemons.map(pokemon => (
+              <Pokemon {...pokemon} key={pokemon.id} />
+            ))}
+          </Style.Grid>
+        </div>
       )}
     </Style.Container>
   );

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   padding: 20px 50px;
@@ -30,4 +31,15 @@ const Error = styled.p`
   color: #fe2132;
 `;
 
-export default { Container, Title, Grid, Loader, Error };
+const NavigationContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Navigation = styled(Link)`
+  font-size: 50px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export default { Container, Title, Grid, Loader, Error, NavigationContainer, Navigation };
