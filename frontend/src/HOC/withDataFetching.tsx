@@ -24,16 +24,16 @@ const withDataFetching = <Props extends object>(
   }, [...shouldCallEffect(props)]);
   return (
     <Style.Container>
-      {loading ? (
+      {loading && (
         <Style.Loader src="https://trello-attachments.s3.amazonaws.com/5d0ce56e059f0263f02e0155/5d0ce56e059f0263f02e016f/x/f020b178de9e22691149d450613f8f52/loader.svg" />
-      ) : error ? (
+      )}
+      {error && (
         <Style.Error>
           Oh no !<br /> The following error happened:
           <br /> {error}
         </Style.Error>
-      ) : (
-        data && <BaseComponent {...props} {...{ [dataName]: data }} />
       )}
+      {data && <BaseComponent {...props} {...{ [dataName]: data }} />}
     </Style.Container>
   );
 };
