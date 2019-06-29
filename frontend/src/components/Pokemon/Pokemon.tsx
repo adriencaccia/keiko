@@ -1,16 +1,16 @@
-import React, { useState, SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Style from './Pokemon.style';
 
-interface Props {
+export interface PokemonInterface {
   id: number;
   name: string;
   height: string;
   weight: string;
 }
 
-const Pokemon = (props: Props) => {
+const Pokemon = (props: PokemonInterface) => {
   const [facing, setFacing] = useState(true);
   const { id, name, height, weight } = props;
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);

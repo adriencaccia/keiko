@@ -1,16 +1,12 @@
 import Pokemon from 'components/Pokemon';
+import { PokemonInterface } from 'components/Pokemon/Pokemon';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { RouteComponentProps } from 'react-router';
 import Style from './Home.style';
 
 export interface Props extends RouteComponentProps<{ page: string }> {
-  pokemons: Array<{
-    id: number;
-    name: string;
-    height: string;
-    weight: string;
-  }>;
+  pokemons: PokemonInterface[];
 }
 
 const Home = (props: Props) => {

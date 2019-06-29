@@ -1,15 +1,11 @@
+import { PokemonInterface } from 'components/Pokemon/Pokemon';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { RouteComponentProps } from 'react-router';
 import Style from './Pokemon.style';
 
 export interface Props extends RouteComponentProps<{ id: string }> {
-  pokemon: {
-    id: number;
-    name: string;
-    height: string;
-    weight: string;
-  };
+  pokemon: PokemonInterface;
 }
 
 const Pokemon = (props: Props) => {
