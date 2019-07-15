@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -6,17 +5,25 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
+  text-transform: capitalize;
   font-family: 'Pokemon', sans-serif;
   font-size: 40px;
+  padding: 30px 0;
+`;
+
+const Info = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 30px 0;
+  padding: 20px 50px;
+  font-family: 'Pokemon', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: auto auto;
   grid-gap: 30px 30px;
 `;
 
@@ -31,15 +38,9 @@ const Error = styled.p`
   color: #fe2132;
 `;
 
-const NavigationContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+const Image = styled.img`
+  height: 130px;
+  width: 130px;
 `;
 
-const Navigation = styled(Link)`
-  font-size: 50px;
-  font-weight: bold;
-  cursor: pointer;
-`;
-
-export default { Container, Title, Grid, Loader, Error, NavigationContainer, Navigation };
+export default { Container, Title, Info, Grid, Loader, Error, Image };

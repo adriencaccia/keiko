@@ -1,22 +1,35 @@
-import * as React from 'react';
-
+import Pokemon from 'components/Pokemon';
+import { PokemonInterface } from 'components/Pokemon/Pokemon';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { RouteComponentProps } from 'react-router';
 import Style from './Home.style';
 
-class Home extends React.Component {
-  render(): React.ReactNode {
-    const pokemon = 'Carapuce';
-
-    return (
-      <Style.Intro>
-        <div>Bienvenue sur ton futur pokédex !</div>
-        <div>
-          Tu vas pouvoir apprendre tout ce qu'il faut sur React, Redux et Symfony, et attraper des
-          pokemons !
-        </div>
-        <div>Commence par créer ton premier pokemon: {pokemon}</div>
-      </Style.Intro>
-    );
-  }
+export interface Props extends RouteComponentProps<{ page: string }> {
+  pokemons: PokemonInterface[];
 }
+
+const Home = (props: Props) => {
+  const page = props.match.params.page;
+  const { pokemons } = props;
+  const pageInt = parseInt(page, 10);
+  const navigation = (pageNumber: number) => (pageNumber <= 0 ? 1 : pageNumber);
+  return (
+    <div>
+      <Style.Title>
+        <FormattedMessage id="home.title" />
+      </Style.Title>
+      <Style.NavigationContainer>
+        <Style.Navigation to={`/pokedex/${navigation(pageInt - 1)}`}>{'<'}</Style.Navigation>
+        <Style.Navigation to={`/pokedex/${navigation(pageInt + 1)}`}>{'>'}</Style.Navigation>
+      </Style.NavigationContainer>
+      <Style.Grid>
+        {pokemons.map((pokemon: any) => (
+          <Pokemon {...pokemon} key={pokemon.id} />
+        ))}
+      </Style.Grid>
+    </div>
+  );
+};
 
 export default Home;
