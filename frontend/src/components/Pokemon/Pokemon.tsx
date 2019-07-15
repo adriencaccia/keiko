@@ -6,8 +6,8 @@ import Style from './Pokemon.style';
 export interface PokemonInterface {
   id: number;
   name: string;
-  height: string;
-  weight: string;
+  height: number;
+  weight: number;
 }
 
 const Pokemon = (props: PokemonInterface) => {
