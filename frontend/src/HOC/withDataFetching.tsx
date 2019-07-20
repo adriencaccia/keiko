@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Style from './withDataFetching.style';
 
-const withDataFetching = <Props extends object>(
-  dataName: string,
+const withDataFetching = <Props extends any>(
   fetchFunction: (props: Props) => any,
   shouldCallEffect: (props: Props) => any[],
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
@@ -14,6 +13,7 @@ const withDataFetching = <Props extends object>(
       setLoading(true);
       try {
         const { body: fetchedData } = await fetchFunction(props);
+        props.dispatchData(fetchedData);
         setData(fetchedData);
       } catch (caughtError) {
         setError(caughtError.toString());
@@ -33,7 +33,7 @@ const withDataFetching = <Props extends object>(
           <br /> {error}
         </Style.Error>
       )}
-      {data && <BaseComponent {...props} {...{ [dataName]: data }} />}
+      {data && <BaseComponent {...props} />}
     </Style.Container>
   );
 };
