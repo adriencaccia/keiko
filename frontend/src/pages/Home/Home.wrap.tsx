@@ -9,6 +9,7 @@ import withDataFetching from '../../HOC/withDataFetching';
 import Home, { Props } from './Home';
 
 const HomeWithDataFetching = withDataFetching<Props>(
+  'fetchPokemons',
   (props: Props) => makeGetRequest(`/pokemon?page=${props.match.params.page}`),
   (props: Props) => [props.match.params.page],
 )(Home);
@@ -18,7 +19,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  dispatchData: (pokemons: PokemonInterface[]) => dispatch(fetchPokemonsSuccess(pokemons)),
+  fetchPokemons: (pokemons: PokemonInterface[]) => dispatch(fetchPokemonsSuccess(pokemons)),
 });
 
 export default connect(

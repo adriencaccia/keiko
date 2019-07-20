@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Style from './withDataFetching.style';
 
 const withDataFetching = <Props extends any>(
+  dispatchFunctionName: string,
   fetchFunction: (props: Props) => any,
   shouldCallEffect: (props: Props) => any[],
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
@@ -13,7 +14,7 @@ const withDataFetching = <Props extends any>(
       setLoading(true);
       try {
         const { body: fetchedData } = await fetchFunction(props);
-        props.dispatchData(fetchedData);
+        props[dispatchFunctionName](fetchedData);
         setData(fetchedData);
       } catch (caughtError) {
         setError(caughtError.toString());
