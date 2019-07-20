@@ -4,7 +4,7 @@ import { getLoginError, getUserToken } from '../selectors';
 const token = 'OX1dSSVRFX1BPU1QsQ0FOX1JFQURfTkV';
 const loginError = 'User not logged in';
 
-const initialState = { ...state, login: { token, loginError } };
+const initialState = { ...state, login: { token, loginError }, pokemon: {} };
 
 describe('Login selectors', () => {
   describe('getUserToken function', () => {
