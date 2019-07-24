@@ -8,6 +8,11 @@ const pokemonArray = [
   { id: 2, name: 'ivysaur', height: 10, weight: 130 },
 ];
 
+const pokemonState = {
+  1: { id: 1, name: 'bulbasaur', height: 7, weight: 69 },
+  2: { id: 2, name: 'ivysaur', height: 10, weight: 130 },
+};
+
 describe('Pokemon reducer', () => {
   describe('FETCH_POKEMON_SUCCESS case', () => {
     it('Should return an initial state with a single pokemon', () => {
@@ -23,9 +28,7 @@ describe('Pokemon reducer', () => {
     it('Should return an initial state with multiple pokemons', () => {
       const action = fetchPokemonsSuccess(pokemonArray);
       const state = reducer(initialState, action);
-      pokemonArray.forEach((pokemon: PokemonInterface) => {
-        expect(state[pokemon.id]).toEqual(pokemon);
-      });
+      expect(state).toEqual(pokemonState);
     });
   });
 });
