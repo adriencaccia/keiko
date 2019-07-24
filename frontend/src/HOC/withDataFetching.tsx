@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Style from './withDataFetching.style';
 
 const withDataFetching = <Props extends any>(
-  dispatchFunctionName: string,
   fetchFunction: (props: Props) => any,
   shouldCallEffect: (props: Props) => any[],
+  dispatchFunctionName: string = 'dispatchData',
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>();
