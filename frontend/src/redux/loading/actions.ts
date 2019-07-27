@@ -5,4 +5,4 @@ export interface LoadingActionParam {
   loading: boolean;
 }
 
-export const setLoading = createStandardAction('Loading/SET_ACTION')<LoadingActionParam>();
+export const setLoading = createStandardAction('loading/SET_ACTION')<LoadingActionParam>();
