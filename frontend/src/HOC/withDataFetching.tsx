@@ -10,18 +10,7 @@ const withDataFetching = <Props extends any>(
   const [data, setData] = useState<any>();
   const [error, setError] = useState<string | null>();
   useEffect(() => {
-    const fetch = async () => {
-      setLoading(true);
-      try {
-        const { body: fetchedData } = await fetchFunction(props);
-        props[dispatchFunctionName](fetchedData);
-        setData(fetchedData);
-      } catch (caughtError) {
-        setError(caughtError.toString());
-      }
-      setLoading(false);
-    };
-    fetch();
+    props.requestData();
   }, [...shouldCallEffect(props)]);
   return (
     <Style.Container>
@@ -34,7 +23,7 @@ const withDataFetching = <Props extends any>(
           <br /> {error}
         </Style.Error>
       )}
-      {data && <BaseComponent {...props} />}
+      <BaseComponent {...props} />
     </Style.Container>
   );
 };

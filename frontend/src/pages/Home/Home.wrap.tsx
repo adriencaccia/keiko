@@ -18,8 +18,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  dispatchData: (pokemons: PokemonInterface[]) => dispatch(fetchPokemonsSuccess(pokemons)),
-  fetchPokemonRequested: () => dispatch(fetchPokemonsRequested()),
+  requestData: () => dispatch(fetchPokemonsRequested()),
 });
 
 export default connect(

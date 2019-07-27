@@ -3,16 +3,13 @@ import { PokemonInterface } from 'components/Pokemon/Pokemon';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { RouteComponentProps } from 'react-router';
-import { EmptyAction } from 'typesafe-actions';
 import Style from './Home.style';
 
 export interface Props extends RouteComponentProps<{ page: string }> {
   pokemons: PokemonInterface[];
-  fetchPokemonRequested: () => EmptyAction<'Pokemon/FETCH_POKEMON_REQUESTED'>;
 }
 
 const Home = (props: Props) => {
-  props.fetchPokemonRequested();
   const page = props.match.params.page;
   const { pokemons } = props;
   const pageInt = parseInt(page, 10);
