@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { getError } from 'redux/error/selector';
 import { getLoading } from 'redux/loading/selector';
 import { fetchPokemonsRequested } from 'redux/Pokemon/actions';
 import { getPokemons } from 'redux/Pokemon/selectors';
@@ -15,6 +16,7 @@ const HomeWithDataFetching = withDataFetching<Props>(
 
 const mapStateToProps = (state: RootState) => ({
   pokemons: getPokemons(state),
+  error: getError(state, getType(fetchPokemonsRequested)),
   loading: getLoading(state, getType(fetchPokemonsRequested)),
 });
 

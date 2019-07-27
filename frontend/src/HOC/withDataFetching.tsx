@@ -5,12 +5,11 @@ const withDataFetching = <Props extends any>(
   shouldCallEffect: (props: Props) => any[],
   dataName: string,
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
-  const { loading } = props;
-  const [error, setError] = useState<string | null>();
+  const { error, loading } = props;
   useEffect(() => {
     props.requestData(...shouldCallEffect(props));
   }, [...shouldCallEffect(props)]);
-  const showComponent = !loading && props[dataName];
+  const showComponent = !error && !loading && props[dataName];
   return (
     <Style.Container>
       {loading && (

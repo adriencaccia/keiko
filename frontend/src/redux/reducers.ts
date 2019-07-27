@@ -6,6 +6,7 @@
 import { LocationChangeAction, RouterState } from 'connected-react-router';
 import { combineReducers, Reducer } from 'redux';
 
+import { reducer as error } from './error';
 import { reducer as loading } from './loading';
 import { reducer as login } from './Login';
 import { reducer as pokemon } from './Pokemon';
@@ -19,8 +20,9 @@ export default function createReducer(asyncReducers: {
 }) {
   return combineReducers<RootState, RootAction>({
     ...asyncReducers,
+    error,
+    loading,
     login,
     pokemon,
-    loading,
   });
 }
