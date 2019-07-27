@@ -11,9 +11,6 @@ export interface Props extends RouteComponentProps<{ id: string }> {
 const Pokemon = (props: Props) => {
   const id = props.match.params.id;
   const { pokemon } = props;
-  if (!pokemon) {
-    return <div />;
-  }
   const baseSpriteUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
   const urls = ['', 'back/', 'shiny/', 'back/shiny/'].map(str => `${baseSpriteUrl + str + id}.png`);
   const { height, weight } = pokemon;

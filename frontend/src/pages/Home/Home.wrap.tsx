@@ -1,20 +1,21 @@
-import { PokemonInterface } from 'components/Pokemon/Pokemon';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { fetchPokemonsRequested, fetchPokemonsSuccess } from 'redux/Pokemon/actions';
+import { getLoading } from 'redux/loading/selector';
+import { fetchPokemonsRequested } from 'redux/Pokemon/actions';
 import { getPokemons } from 'redux/Pokemon/selectors';
 import { RootState } from 'redux/types';
-import { makeGetRequest } from 'services/networking/request';
+import { getType } from 'typesafe-actions';
 import withDataFetching from '../../HOC/withDataFetching';
 import Home, { Props } from './Home';
 
 const HomeWithDataFetching = withDataFetching<Props>(
-  (props: Props) => makeGetRequest(`/pokemon?page=${props.match.params.page}`),
   (props: Props) => [props.match.params.page],
+  'pokemons',
 )(Home);
 
 const mapStateToProps = (state: RootState) => ({
   pokemons: getPokemons(state),
+  loading: getLoading(state, getType(fetchPokemonsRequested)),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
