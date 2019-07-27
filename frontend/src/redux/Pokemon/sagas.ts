@@ -10,7 +10,7 @@ import {
   fetchPokemonSuccess,
 } from './actions';
 
-function* fetchPokemon(action: ActionType<typeof fetchPokemonRequested>) {
+export function* fetchPokemon(action: ActionType<typeof fetchPokemonRequested>) {
   yield put(setLoading({ actionName: action.type, loading: true }));
   const { payload: id } = action;
   const url = `/pokemon/${id}`;
@@ -23,7 +23,7 @@ function* fetchPokemon(action: ActionType<typeof fetchPokemonRequested>) {
   yield put(setLoading({ actionName: action.type, loading: false }));
 }
 
-function* fetchPokemons(action: ActionType<typeof fetchPokemonsRequested>) {
+export function* fetchPokemons(action: ActionType<typeof fetchPokemonsRequested>) {
   yield put(setLoading({ actionName: action.type, loading: true }));
   const { payload: page } = action;
   const url = `/pokemon?page=${page}`;
