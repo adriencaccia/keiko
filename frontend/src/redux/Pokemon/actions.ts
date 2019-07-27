@@ -5,7 +5,9 @@ export const fetchPokemonRequested = createStandardAction('Pokemon/FETCH_POKEMON
   number
 >();
 
-export const fetchPokemonsRequested = createStandardAction('Pokemon/FETCH_POKEMONS_REQUESTED')();
+export const fetchPokemonsRequested = createStandardAction('Pokemon/FETCH_POKEMONS_REQUESTED')<
+  number
+>();
 
 export const fetchPokemonSuccess = createStandardAction('Pokemon/FETCH_POKEMON_SUCCESS')<
   PokemonInterface

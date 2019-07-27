@@ -25,8 +25,10 @@ function* fetchPokemon(action: ActionType<typeof fetchPokemonRequested>) {
 
 function* fetchPokemons(action: ActionType<typeof fetchPokemonsRequested>) {
   yield put(setLoading({ actionName: action.type, loading: true }));
+  const { payload: page } = action;
+  const url = `/pokemon?page=${page}`;
   try {
-    const { body: pokemons } = yield call(makeGetRequest, '/pokemon');
+    const { body: pokemons } = yield call(makeGetRequest, url);
     yield put(fetchPokemonsSuccess(pokemons));
   } catch (error) {
     yield put(setError({ actionName: action.type, error: error.toString() }));

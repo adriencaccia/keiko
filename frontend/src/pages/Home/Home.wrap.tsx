@@ -21,7 +21,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  requestData: () => dispatch(fetchPokemonsRequested()),
+  requestData: (page: number) => dispatch(fetchPokemonsRequested(page)),
 });
 
 export default connect(
