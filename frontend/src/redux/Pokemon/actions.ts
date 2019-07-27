@@ -1,7 +1,11 @@
 import { PokemonInterface } from 'components/Pokemon/Pokemon';
 import { createStandardAction } from 'typesafe-actions';
 
-export const fetchPokemonsRequested = createStandardAction('Pokemon/FETCH_POKEMON_REQUESTED')();
+export const fetchPokemonRequested = createStandardAction('Pokemon/FETCH_POKEMON_REQUESTED')<
+  number
+>();
+
+export const fetchPokemonsRequested = createStandardAction('Pokemon/FETCH_POKEMONS_REQUESTED')();
 
 export const fetchPokemonSuccess = createStandardAction('Pokemon/FETCH_POKEMON_SUCCESS')<
   PokemonInterface

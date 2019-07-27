@@ -10,7 +10,7 @@ const withDataFetching = <Props extends any>(
   const [data, setData] = useState<any>();
   const [error, setError] = useState<string | null>();
   useEffect(() => {
-    props.requestData();
+    props.requestData(...shouldCallEffect(props));
   }, [...shouldCallEffect(props)]);
   return (
     <Style.Container>
