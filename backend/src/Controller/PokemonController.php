@@ -38,16 +38,16 @@ class PokemonController
         return new JsonResponse($serializedPokemon);
     }
 
-    /**
-     * @Route("/pokemon", methods={"GET"})
-     */
-    public function getAll(): JsonResponse
-    {
-        $pokemons = $this->pokemonService->getAll();
-        $serializedPokemons = $this->normalizer->normalize($pokemons);
+    // /**
+    //  * @Route("/pokemon", methods={"GET"})
+    //  */
+    // public function getAll(): JsonResponse
+    // {
+    //     $pokemons = $this->pokemonService->getAll();
+    //     $serializedPokemons = $this->normalizer->normalize($pokemons);
 
-        return new JsonResponse($serializedPokemons);
-    }
+    //     return new JsonResponse($serializedPokemons);
+    // }
 
     /**
      * @Route("/pokemon", methods={"POST"})
