@@ -2,27 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Style from './withDataFetching.style';
 
 const withDataFetching = <Props extends any>(
-  fetchFunction: (props: Props) => any,
   shouldCallEffect: (props: Props) => any[],
-  dispatchFunctionName: string = 'dispatchData',
+  dataName: string,
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [data, setData] = useState<any>();
-  const [error, setError] = useState<string | null>();
+  const { error, loading } = props;
   useEffect(() => {
-    const fetch = async () => {
-      setLoading(true);
-      try {
-        const { body: fetchedData } = await fetchFunction(props);
-        props[dispatchFunctionName](fetchedData);
-        setData(fetchedData);
-      } catch (caughtError) {
-        setError(caughtError.toString());
-      }
-      setLoading(false);
-    };
-    fetch();
+    props.requestData(...shouldCallEffect(props));
   }, [...shouldCallEffect(props)]);
+  const showComponent = !error && !loading && props[dataName];
   return (
     <Style.Container>
       {loading && (
@@ -34,7 +21,7 @@ const withDataFetching = <Props extends any>(
           <br /> {error}
         </Style.Error>
       )}
-      {data && <BaseComponent {...props} />}
+      {showComponent && <BaseComponent {...props} />}
     </Style.Container>
   );
 };

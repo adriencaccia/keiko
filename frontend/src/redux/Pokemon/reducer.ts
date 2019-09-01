@@ -19,7 +19,6 @@ const reducer = (state: PokemonState = initialState, action: AnyAction) => {
       };
     case getType(fetchPokemonsSuccess):
       return {
-        ...state,
         ...normalize(typedAction.payload),
       };
   }
